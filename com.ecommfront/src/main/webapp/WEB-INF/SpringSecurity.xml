@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security.xsd">
+	
+	<security:global-method-security secured-annotations="enabled" />
+	
+	<security:http auto-config="true">
+		<!-- 
+		<security:intercept-url pattern="/**" access="hasRole('USER') or hasRole('ADMIN')" />
+		<security:intercept-url pattern="/**" access="authenticated" />
+		 -->
+		 
+		 <!-- 
+		 <security:intercept-url pattern="/product" access="hasRole('ROLE_ADMIN')" />
+		 <security:intercept-url pattern="/category" access="hasRole('ROLE_ADMIN')" />
+		 <security:intercept-url pattern="/InsertCategory" access="hasRole('ROLE_ADMIN')" />
+		 
+		 <security:intercept-url pattern="/productDisplay" access="hasRole('Role_User')" />
+		 <security:intercept-url pattern="/cartDisplay" access="hasRole('Role_User')" />
+		 <security:intercept-url pattern="/totalProductInfo" access="hasRole('Role_User')" />
+		 <security:intercept-url pattern="/addToCart" access="hasRole('Role_User')" />
+		 -->	  
+	
+		 
+		<security:form-login login-page="/loginpage" 
+			username-parameter="username" 
+			password-parameter="password"
+		    default-target-url="/login_success"  
+		    authentication-failure-url="/loginpage?error=1" />
+		
+		<!-- should this be part of above mentioned security:form-login : 
+				authentication-success-url="/Login_success"   
+		-->
+		<security:logout logout-url="/logout" 
+		logout-success-url="/loginpage" />
+		
+		<security:csrf disabled="true"/> 
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<!-- <security:password-encoder hash="bcrypt" /> -->
+	   		<!-- dataSource is configured as Bean in Backend->Dbconfig -->
+	   		<security:jdbc-user-service 
+	   		data-source-ref="dataSource" 
+	   		users-by-username-query="select userName,password, enabled from UserDetail where userName=?" 
+	   		authorities-by-username-query="select userName,role from UserDetail where userName=?" 
+	   		/>
+	    </security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>
