@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
@@ -16,8 +17,12 @@ public class Product
 	@GeneratedValue
 	int productId;
 	
+	@NotEmpty(message = "empty product name")
 	String productName;
+	
+	@NotEmpty(message = "empty product desc")
 	String productDesc;
+	
 	int price;
 	int stock;
 	

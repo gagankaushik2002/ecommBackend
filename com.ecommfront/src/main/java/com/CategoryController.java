@@ -35,11 +35,16 @@ public class CategoryController
 	public String insertCategory(@RequestParam("catName")String categoryName,@RequestParam("catDesc")String categoryDesc, Model m)
 	{
 		flag=false;
+		String returnStatus;
 		Category category = new Category();
 		category.setCategoryName(categoryName);
 		category.setCategoryDesc(categoryDesc);
 		
-		categoryDAO.addCategory(category);
+		returnStatus=categoryDAO.addCategory(category);
+		if (returnStatus != "Saved")
+		{
+			m.addAttribute("errorSAve",returnStatus);
+		}
 		
 		List<Category> listCategories = categoryDAO.listCategories();
 		m.addAttribute("categoryList",listCategories);

@@ -6,7 +6,7 @@
 		<table class="table" border="1">
 			<tr>
 				<td rowspan="9">
-					<img src='<c:url value="/resources/images/${product.productId}.jpg"/>' alt="image not supported">
+					<img class="img-responsive" src='<c:url value="/resources/images/${product.productId}.jpg"/>' alt="image not supported">
 				</td>
 			</tr>
 			<tr>

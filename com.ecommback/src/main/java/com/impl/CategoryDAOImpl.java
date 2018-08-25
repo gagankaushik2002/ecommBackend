@@ -21,17 +21,27 @@ public class CategoryDAOImpl implements CategoryDAO
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	public boolean addCategory(Category category) 
+	public String addCategory(Category category) 
 	{
-		try
+		String saveStatus;
+		System.out.println("from daoimpl="+category.getCategoryName());
+		if (category.getCategoryName()=="")
 		{
-			sessionFactory.getCurrentSession().save(category);
-			return true;
+			saveStatus =  "BlankName";
 		}
-		catch(Exception e)
+		else
 		{
-			return false;
+			try
+			{
+				sessionFactory.getCurrentSession().save(category);
+				saveStatus = "Saved";
+			}
+			catch(Exception e)
+			{
+				saveStatus =  "CouldNotSave-"+e;
+			}
 		}
+		return saveStatus;
 	}
 
 	public boolean updateCategory(Category category) 

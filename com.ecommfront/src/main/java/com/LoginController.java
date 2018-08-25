@@ -60,7 +60,7 @@ public class LoginController
 		{
 			session.setAttribute("role", role.getAuthority());
 			System.out.println("role loop="+role.getAuthority());
-			if (role.getAuthority().equals("Role_User"))
+			if (role.getAuthority().equals("ROLE_USER"))
 			{
 				loggedIn = true;
 				page = "ProductDisplay";
@@ -89,6 +89,7 @@ public class LoginController
 		return page;
 	}
 	
+	/*
 	@RequestMapping("/loginFromPage")
 	public String loginFromPage(Model m,HttpSession session )
 	{	
@@ -135,4 +136,5 @@ public class LoginController
 		System.out.println("loginFromPage 3 page="+page);
 		return page;
 	}
+	*/
 }

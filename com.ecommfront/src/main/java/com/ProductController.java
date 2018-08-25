@@ -9,12 +9,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dao.CategoryDAO;
 import com.model.Category;
@@ -63,7 +66,7 @@ public class ProductController
 	}
 	
 	@RequestMapping(value="/ProductInsert",method=RequestMethod.POST)
-	public String insertProduct(@ModelAttribute("product")Product product,@RequestParam("pimage") MultipartFile filedet,Model m)
+	public ModelAndView insertProduct(@ModelAttribute("product")@Validated Product product,BindingResult bindingResult,@RequestParam("pimage") MultipartFile filedet,Model m)
 	{
 		/*
 		This is the plus point of using Spring Form, we don't need to set each field of the object
@@ -78,10 +81,26 @@ public class ProductController
 		
 		Gagan use same for Category
 		*/
+	
+		if(bindingResult.hasErrors() ) {
+			
+			ModelAndView mav = new ModelAndView("ManageProduct");
+			
+			mav.addObject("product", product);
+			
+			return mav;
+		}
+		
 		System.out.println("in insert");
 		productDAO.addProduct(product);
-		Product product1 = new Product();
-		m.addAttribute(product1);	//to show blank product after save
+		
+		if (!bindingResult.hasErrors()) 
+		{
+			Product product1 = new Product();
+			m.addAttribute(product1);	//to show blank product after save
+	    }
+		
+		
 		
 		m.addAttribute("categoryList",categoryDAO.getCategories());
 		m.addAttribute("supplierList",supplierDAO.getSuppliers());
@@ -116,7 +135,7 @@ public class ProductController
 		//==> Completed
 		//System.out.println("Prodcut Added");
 		System.out.println("in insert sbye");
-		return "ManageProduct";
+		return new ModelAndView("ManageProduct");
 	}
 	
 	@RequestMapping(value="/deleteProduct/{productId}")

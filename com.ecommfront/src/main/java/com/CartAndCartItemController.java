@@ -31,7 +31,7 @@ public class CartAndCartItemController
 		String userName = (String) session.getAttribute("username");
 		List<CartItem> cartItems = cartItemDAO.showCartItems(userName);
 		m.addAttribute("cartItems",cartItems);
-		m.addAttribute("totalPurchaseAmount",this.calculateTotalPurchaseAmount(cartItems));
+		m.addAttribute("totalPurchaseAmount",cartItemDAO.calculateTotalPurchaseAmount(cartItems));
 		return "Cart";
 	}
 	
@@ -59,7 +59,7 @@ public class CartAndCartItemController
 		
 		List<CartItem> cartItems = cartItemDAO.showCartItems(userName);
 		m.addAttribute("cartItems",cartItems);
-		m.addAttribute("totalPurchaseAmount",this.calculateTotalPurchaseAmount(cartItems));
+		m.addAttribute("totalPurchaseAmount",cartItemDAO.calculateTotalPurchaseAmount(cartItems));
 		System.out.println("in add cart 4");
 		return "Cart";
 	}
@@ -75,7 +75,7 @@ public class CartAndCartItemController
 		
 		List<CartItem> cartItems = cartItemDAO.showCartItems(userName);
 		m.addAttribute("cartItems",cartItems);
-		m.addAttribute("totalPurchaseAmount",this.calculateTotalPurchaseAmount(cartItems));
+		m.addAttribute("totalPurchaseAmount",cartItemDAO.calculateTotalPurchaseAmount(cartItems));
 		
 		return "Cart";
 	}
@@ -89,7 +89,7 @@ public class CartAndCartItemController
 		String userName = (String) session.getAttribute("username");
 		List<CartItem> cartItems = cartItemDAO.showCartItems(userName);
 		m.addAttribute("cartItems",cartItems);
-		m.addAttribute("totalPurchaseAmount",this.calculateTotalPurchaseAmount(cartItems));
+		m.addAttribute("totalPurchaseAmount",cartItemDAO.calculateTotalPurchaseAmount(cartItems));
 		
 		return "Cart";
 	}
@@ -101,13 +101,27 @@ public class CartAndCartItemController
 		return "ProductDisplay";
 	}
 	
-	@RequestMapping(value="/checkOut")
-	public String checkOut()
+	@RequestMapping("/checkOut")
+	public String checkOut(Model m, HttpSession session)
 	{
+		String userName = (String)session.getAttribute("username");
 		
-		return "index";
+		List<CartItem> cartItems=cartItemDAO.showCartItems(userName);
+		m.addAttribute("cartItems",cartItems);
+		
+		m.addAttribute("totalPurchaseAmount",cartItemDAO.calculateTotalPurchaseAmount(cartItems));
+		
+		return "MyOrder";
 	}
 	
+//	@RequestMapping(value="/checkOut")
+//	public String checkOut()
+//	{
+//		
+//		return "index";
+//	}
+	
+	/*
 	public int calculateTotalPurchaseAmount(List<CartItem> cartItems)
 	{
 		int totalPurchaseAmount = 0;
@@ -121,4 +135,5 @@ public class CartAndCartItemController
 		}
 		return totalPurchaseAmount;
 	}
+	*/
 }

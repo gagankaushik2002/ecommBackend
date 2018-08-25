@@ -6,6 +6,18 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <html>
+	<style>
+	  /* Note: Try to remove the following lines to see the effect of CSS positioning */
+	  .affix {
+	      top: 0;
+	      width: 100%;
+	      z-index: 9999 !important;
+	  }
+	
+	  .affix + .container-fluid {
+	      padding-top: 70px;
+	  }
+  </style>
 	<head>
 		<meta name-"viewport" content="width-device-width",initial-scale=1>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,13 +35,16 @@
 	</head>
 	<body>
 		
-		<nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">MyBazar</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="home">Home</a></li>
+					<!-- ${pageContext.session.id} -->
+					<li class="active">
+					<a href="${pageContext.request.contextPath}/">Home</a>
+					</li>
 					<c:if test="${!sessionScope.loggedIn}">
 						<li><a href="${pageContext.request.contextPath}/loginpage">Login</a></li>
 						<li><a href="${pageContext.request.contextPath}/register">Register</a></li>
@@ -41,7 +56,7 @@
 							<li><a href="${pageContext.request.contextPath}/category">hCategory</a></li>
 							<li><a href="${pageContext.request.contextPath}/product">Manage Product</a></li>
 						</c:if>
-						<c:if test="${sessionScope.role=='Role_User'}">
+						<c:if test="${sessionScope.role=='ROLE_USER'}">
 							<li><a href="${pageContext.request.contextPath}/productDisplay">Display Product</a></li>
 							<li><a href="${pageContext.request.contextPath}/cartDisplay">Goto Cart</a></li>
 						</c:if>

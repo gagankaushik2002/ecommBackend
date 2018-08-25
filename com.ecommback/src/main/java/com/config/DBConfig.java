@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.model.Cart;
 import com.model.CartItem;
 import com.model.Category;
+import com.model.OrderDetail;
 import com.model.Product;
 import com.model.Supplier;
 import com.model.UserDetail;
@@ -56,6 +57,7 @@ public class DBConfig
 		sessionFactoryBuilder.addAnnotatedClass(UserDetail.class);
 		sessionFactoryBuilder.addAnnotatedClass(Cart.class);
 		sessionFactoryBuilder.addAnnotatedClass(CartItem.class);
+		sessionFactoryBuilder.addAnnotatedClass(OrderDetail.class);
 		
 		SessionFactory sessionFactory=sessionFactoryBuilder.buildSessionFactory();
 		

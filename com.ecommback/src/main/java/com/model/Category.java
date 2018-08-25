@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
 @Table
 public class Category 
@@ -27,6 +25,7 @@ public class Category
 	@Id
 	@GeneratedValue
 	int categoryId;
+	
 	
 	String categoryName;
 	String categoryDesc;

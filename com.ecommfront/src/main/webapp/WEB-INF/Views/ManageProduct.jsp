@@ -3,34 +3,50 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+	<style>
+      .error {
+         color: #ff0000;
+      }
+
+      .errorblock {
+         color: #000;
+         background-color: #ffEEEE;
+         border: 3px solid #ff0000;
+         padding: 8px;
+         margin: 16px;
+      }
+   </style>
 <form:form action="${pageContext.request.contextPath}/ProductInsert" modelAttribute="product" method="post" enctype="multipart/form-data">
-	<table align="center" cellspacing="3" class="table-striped">
+	<form:errors path = "*" cssClass = "errorblock" element = "div" />
+	<table align="center" cellspacing="3" class="table">
 		<tr bgcolor="pink">
-			<td colspan="2"><center>Product Manage</center></td>
+			<td colspan="3"><center>Product Manage</center></td>
 		</tr>
 		<tr>
 			<td>Product Name</td>
 			<td><form:input path="productName"/></td>
+			<td><form:errors path = "productName" cssClass = "error" /></td>
 		</tr>
 		<tr>
 			<td>Product Description</td>
 			<td><form:input path="productDesc"/></td>
+			<td><form:errors path = "productDesc" cssClass = "error" /></td>
 		</tr>
 		<tr>
 			<td>Product Image</td>
-			<td><form:input type="file" path="pimage"/></td>
+			<td colspan="2"><form:input type="file" path="pimage"/></td>
 		</tr>
 		<tr>
 			<td>Price</td>
-			<td><form:input path="price"/></td>
+			<td colspan="2"><form:input path="price"/></td>
 		</tr>
 		<tr>
 			<td>Stock</td>
-			<td><form:input path="stock"/></td>
+			<td colspan="2"><form:input path="stock"/></td>
 		</tr>
 		<tr>
 			<td>Category</td>
-			<td>
+			<td colspan="2">
 				<!-- <form:input path="categoryId"/> -->
 				<form:select path="categoryId">
 					<form:option value="0" label="-- Select List --"/>
@@ -42,8 +58,8 @@
 			</td>
 		</tr>
 		<tr>
-			<td>Supplier</td>
-			<td>
+			<td >Supplier</td>
+			<td colspan="2">
 				<!-- <form:input path="categoryId"/> -->
 				<form:select path="supplierId">
 					<form:option value="0" label="-- Select List --"/>

@@ -29,8 +29,11 @@
 		</c:if>
 		
 		<c:if test="${!flag}">
+			 <c:if test="${not empty errorSAve}">
+			    <h1 class="alert alert-danger" >${errorSAve}</h1>
+			</c:if>
 			<form action="<c:url value="/InsertCategory"/>" method="post">
-				<table align="center">
+				<table class="table table-striped table-hover table-condensed">
 					<tr>
 						<td>Category Name</td>
 						<td><input type="text" name="catName"/></td>
@@ -51,11 +54,12 @@
 			</form>
 		</c:if>
 		
-		<table align="center">
+		<table class="table table-striped table-hover table-condensed">
 			<tr bgcolor="pink">
 				<td>Category Id</td>
 				<td>Category Name</td>
 				<td>Category Description</td>
+				<td>Actions</td>
 			</tr>
 			<c:forEach items="${categoryList}" var="category">
 				<tr>

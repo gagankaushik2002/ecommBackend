@@ -10,4 +10,6 @@ public interface CartItemDAO
 	public boolean deleteCartItem(CartItem cartItem);
 	public CartItem getCartItem(int cartItemId);
 	public List<CartItem> showCartItems(String userName);
+	public int calculateTotalPurchaseAmount(List<CartItem> cartItems);
+	public boolean updateCartItems(String userName);
 }

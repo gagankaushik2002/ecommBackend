@@ -15,16 +15,16 @@
 		<security:intercept-url pattern="/**" access="authenticated" />
 		 -->
 		 
-		 <!-- 
+		 
 		 <security:intercept-url pattern="/product" access="hasRole('ROLE_ADMIN')" />
 		 <security:intercept-url pattern="/category" access="hasRole('ROLE_ADMIN')" />
 		 <security:intercept-url pattern="/InsertCategory" access="hasRole('ROLE_ADMIN')" />
 		 
-		 <security:intercept-url pattern="/productDisplay" access="hasRole('Role_User')" />
-		 <security:intercept-url pattern="/cartDisplay" access="hasRole('Role_User')" />
-		 <security:intercept-url pattern="/totalProductInfo" access="hasRole('Role_User')" />
-		 <security:intercept-url pattern="/addToCart" access="hasRole('Role_User')" />
-		 -->	  
+		 <security:intercept-url pattern="/productDisplay" access="hasRole('ROLE_USER')" />
+		 <security:intercept-url pattern="/cartDisplay" access="hasRole('ROLE_USER')" />
+		 <security:intercept-url pattern="/totalProductInfo" access="hasRole('ROLE_USER')" />
+		 <security:intercept-url pattern="/addToCart" access="hasRole('ROLE_USER')" />
+		   
 	
 		 
 		<security:form-login login-page="/loginpage" 

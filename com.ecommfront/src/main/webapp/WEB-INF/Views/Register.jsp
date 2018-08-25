@@ -14,7 +14,7 @@
  		function contact()
  		{
  			alert("still working on....");
- 			document.getElementById('registerUser').submit();
+ 			document.getElementById('userDetail').submit();
  		}
  	</script>
 
@@ -75,28 +75,48 @@
 			}
 	</style>
 	
-	<form:form action="${pageContext.request.contextPath}/RegisterUser" modelAttribute="registerUser" method="post" enctype="multipart/form-data">
+	
+	<form:form action="${pageContext.request.contextPath}/RegisterUser" modelAttribute="userDetail" method="post" enctype="multipart/form-data">
 	  <div class="container">
+	    <c:if test="${userAlreadyExists==1}">
+			<h1 class="alert alert-danger" >UserName already exists</h1>
+		</c:if>
+	    
 	    <h1>Register</h1>
 	    <p>Please fill in this form to create an account.</p>
 	    <hr>
-	
+		
+		<form:hidden path="role" value="ROLE_USER"/>
+		<form:hidden path="enabled" value="1"/>
+		<label for="customerName"><b>Name</b></label>
+	    <form:input path="customerName" required="required"/>
+	    
+	    <label for="userName"><b>UserName</b></label>
+	    <form:input path="userName" required="required"/>
+	    <!--  <input type="text" placeholder="Enter userName for login" name="userName" required> -->
+	    
 	    <label for="email"><b>Email</b></label>
-	    <input type="text" placeholder="Enter Email" name="email" required>
+	    <!--  input type="text" placeholder="Enter Email" name="email" required> -->
+	    <form:input path="email" required="required"/>
 	
-	    <label for="psw"><b>Password</b></label>
-	    <input type="password" placeholder="Enter Password" name="psw" required>
+	    <label for="password"><b>Password</b></label>
+	    <!-- <input type="password" placeholder="Enter Password" name="password" required> -->
+	    <form:password path="password" required="required"/>
 	
+	    <!-- 
 	    <label for="psw-repeat"><b>Repeat Password</b></label>
-	    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+	    <input type="password" placeholder="Repeat Password" name="password-repeat" required>
 	    <hr>
+	     
 	
 	    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+	    -->
+	    
 	    <button type="submit" class="registerbtn">Register</button>
 	  </div>
 	
 	  <div class="container signin">
-	    <p>Already have an account? <a href="#">Sign in</a>.</p>
+	    <p>Already have an account? <a href="${pageContext.request.contextPath}/loginpage">Sign in</a>.</p>
 	  </div>
 	</form:form>
 	</body>

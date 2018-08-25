@@ -77,5 +77,48 @@ public class CartItemDAOImpl implements CartItemDAO
 		session.close();
 		return listCartItems;
 	}
+	
+	public int calculateTotalPurchaseAmount(List<CartItem> cartItems)
+	{
+		int totalPurchaseAmount = 0;
+		int count = 0;
+		
+		while(count<cartItems.size())
+		{
+			CartItem cartItem = cartItems.get(count);
+			totalPurchaseAmount = totalPurchaseAmount+(cartItem.getQuantity()*cartItem.getPrice());
+			count++;
+		}
+		return totalPurchaseAmount;
+	}
+	
+	public boolean updateCartItems(String userName) 
+	{
+		//this will be called from Payment_JSP marking related cart items as paid
+		System.out.println("in updateCartITems="+userName);
+		try
+		{
+			Session session=sessionFactory.getCurrentSession();
+			//here in update table name should be the same as given in your model class
+			Query query  = session.createQuery("update CartItem set status='p' where username=:myUserName and status='NA'");
+			query.setParameter("myUserName", userName);
+			
+			int row_eff = query.executeUpdate();
+			System.out.println("in updateCartITems try row=-"+row_eff);
+			if (row_eff>0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("in catch="+e);
+			return false;
+		}
+	}
 
 }

@@ -2,18 +2,17 @@
 <%@include file="Header.jsp"%>
 	
 		<div class="container">
-			<table class="table">
-				<tr bgcolor="pink"><td colspan="6"><center>Your Order</center></td></tr>
+			<table class="table table-striped table-hover table-condensed">
+				<tr class="success"><td colspan="5"><center>Your Order</center></td></tr>
 				<tr>
-					<td>SL #</td>
-					<td>Product Name</td>
-					<td>Quantity</td>
-					<td>Price</td>
-					<td>Total Price</td>
-					<td>Operation</td>
+					<th>SL #</th>
+					<th>Product Name</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th>Total Price</th>
 				</tr>
 				<c:if test="${empty cartItems}">
-					<tr><td colspan="6">Your Cart is Empty</td></tr>
+					<tr><td colspan="5">Your Cart is Empty</td></tr>
 				</c:if>
 				
 				<c:if test="${not empty cartItems}">
@@ -31,13 +30,15 @@
 						<!-- <c:set var="cartCount" value="${cartCount + 1}" scope="page"/> -->
 					</c:forEach>
 				</c:if>
-				<tr bgcolor="orange">
-					<td colspan="4">Total Purchase Amount</td>
-					<td colspan="2">${totalPurchaseAmount}</td>
+				<tr class="success">
+					<td class="danger" colspan="4">Total Purchase Amount</td>
+					<td class="danger" colspan="1">${totalPurchaseAmount}</td>
 				</tr>
-				<tr bgcolor="Lightblue">
-					<td colspan="3"><a href="<c:url value="/continueShopping"/>">Continue Shopping</a>
-					<td colspan="3"><a href="<c:url value="/payment"/>">Payment</a>
+				<tr class="success">
+					<!--  continueShopping is in CartAndCartItemController -->
+					<td colspan="4"><a class="btn btn-success" href="<c:url value="/continueShopping"/>">Continue Shopping</a>
+					<!--  payment is in OrderAndPaymentController -->
+					<td><a class="btn btn-success" href="<c:url value="/payment"/>">Payment</a>
 				</tr>
 			</table>
 		</div>
